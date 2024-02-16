@@ -1,0 +1,60 @@
+<!-- ue-details.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= ue.nom %></title>
+</head>
+<body>
+    <h1><%= ue.nom %></h1>
+    <p>ID: <%= ue.id %></p>
+    <p>Description: <%= ue.description %></p>
+    <form action="/<%= ue.id %>/write" method="post">
+        <label for="studentName">Nom de l'étudiant:</label>
+        <input type="text" id="studentName" name="studentName" required>
+    
+        <label for="studentNote">Note:</label>
+        <input type="number" id="studentNote" name="newNote" min="0" max="20" required>
+    
+        <button type="submit">Ajouter la note</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Étudiant</th>
+                <th>Note</th>
+                <th>Validée</th>
+                <th>Valider</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% ue.notes.forEach(function(note, index) { %>
+                <tr>
+                    <td><%= note.nom %></td>
+                    <td>
+                        <form action="/<%= ue.id %>/write" method="post">
+                            <input type="hidden" name="studentName" value="<%= note.nom %>">
+                            <input type="number" name="newNote" min="0" max="20" value="<%= note.note %>">
+                            <button type="submit">Modifier</button>
+                        </form>
+                    </td>
+                    <td><%= note.isValidated ? 'Oui' : 'Non' %></td>
+                    <td>
+                        <form action="/<%= ue.id %>/validate" method="post">
+                            <input type="hidden" name="studentName" value="<%= note.nom %>">
+                            <button type="submit" <%= note.isValidated ? 'disabled' : '' %>>Valider</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/<%= ue.id %>/delete" method="post">
+                            <input type="hidden" name="studentName" value="<%= note.nom %>">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

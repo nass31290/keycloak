@@ -1,0 +1,14 @@
+{
+    "realm": "tp-application",
+    "auth-server-url": "http://localhost:8090/",
+    "ssl-required": "external",
+    "resource": "tp-application",
+    "verify-token-audience": true,
+    "credentials": {
+      "secret": "94i7FifuGMFj21nmHC6T16z5mKZyyd1l"
+    },
+    "confidential-port": 0,
+    "policy-enforcer": {
+      "credentials": {}
+    }
+  }
